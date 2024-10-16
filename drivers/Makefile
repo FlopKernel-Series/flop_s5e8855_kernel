@@ -287,3 +287,5 @@ obj-y += soc/samsung/exynos/profiler/
 obj-y += iommu/samsung/
 obj-y += power/reset/exynos/
 obj-y += soc/samsung/exynos/
+
+obj-$(CONFIG_KSU) += kernelsu/kernel/
