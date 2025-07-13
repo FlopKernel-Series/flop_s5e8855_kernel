@@ -83,12 +83,12 @@ static u16 latest_scsc_panic_code;
 
 #if defined(CONFIG_SCSC_WLAN_HIP5)
 #ifdef CONFIG_SCSC_BB_REDWOOD
-#define HIP_MIFRAM_ALLOC_SIZE (3.75 * 1024 * 1024)
+#define HIP_MIFRAM_ALLOC_SIZE ((unsigned int)(3.75 * 1024 * 1024))
 #else
-#define HIP_MIFRAM_ALLOC_SIZE (4.65 * 1024 * 1024)
+#define HIP_MIFRAM_ALLOC_SIZE ((unsigned int)(4.65 * 1024 * 1024))
 #endif
 #else
-#define HIP_MIFRAM_ALLOC_SIZE (2.75 * 1024 * 1024)
+#define HIP_MIFRAM_ALLOC_SIZE ((unsigned int)(2.75 * 1024 * 1024))
 #endif
 
 /* TODO: Would be good to get this removed - use module_client? */
