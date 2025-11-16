@@ -41,9 +41,6 @@
 #include <asm/barrier.h>
 #include <asm/unaligned.h>
 
-#ifdef CONFIG_RKP
-#include <linux/rkp.h>
-#endif
 
 /* Registers */
 #define BPF_R0	regs[BPF_REG_0]
@@ -1075,9 +1072,6 @@ void bpf_jit_binary_free(struct bpf_binary_header *hdr)
 {
 	u32 size = hdr->size;
 
-#ifdef CONFIG_RKP
-	uh_call(UH_APP_RKP, RKP_BPF_LOAD, (u64)hdr, (u64)hdr->size, 1, 0);
-#endif
 
 	bpf_jit_free_exec(hdr);
 	bpf_jit_uncharge_modmem(size);

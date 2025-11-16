@@ -80,9 +80,7 @@ enum lsm_event {
 	LSM_POLICY_CHANGE,
 };
 
-#ifndef CONFIG_KDP
 #define security_integrity_current()  0
-#endif
 
 /*
  * These are reasons that can be passed to the security_locked_down()
