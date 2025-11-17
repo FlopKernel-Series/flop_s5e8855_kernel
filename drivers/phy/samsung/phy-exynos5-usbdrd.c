@@ -274,7 +274,7 @@ static void exynos5_usbdrd_phy_isol(struct phy_usb_instance *inst,
  * from clock core. Further sets multiplier values and spread spectrum
  * clock settings for SuperSpeed operations.
  */
-static unsigned int
+static int
 exynos5_usbdrd_pipe3_set_refclk(struct phy_usb_instance *inst)
 {
 	u32 reg;
@@ -320,7 +320,7 @@ exynos5_usbdrd_pipe3_set_refclk(struct phy_usb_instance *inst)
  * Sets the utmi phy's clk as EXTREFCLK (XXTI) which is internal clock
  * from clock core. Further sets the FSEL values for HighSpeed operations.
  */
-static unsigned int
+static int
 exynos5_usbdrd_utmi_set_refclk(struct phy_usb_instance *inst)
 {
 	u32 reg;
