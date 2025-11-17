@@ -907,3 +907,13 @@ comment "Simple LED drivers"
 source "drivers/leds/simple/Kconfig"
 
 endif # NEW_LEDS
+
+# Added from Device drivers
+# SPDX-License-Identifier: GPL-2.0-only
+
+config LEDS_S2MF301_FLASH
+	tristate "FLASH LED support for the S2MF301"
+	depends on (MFD_S2MF301) && I2C
+	help
+	  If you say yes here you will get support for
+	  the LEDS_S2MF301_FLASH led chip.

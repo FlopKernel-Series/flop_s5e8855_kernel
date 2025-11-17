@@ -25,3 +25,6 @@ source "drivers/mmc/core/Kconfig"
 source "drivers/mmc/host/Kconfig"
 
 endif # MMC
+
+# Added from Device drivers
+source "$(KCONFIG_EXT_PREFIX)drivers/mmc/host/Kconfig"

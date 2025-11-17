@@ -43,3 +43,12 @@ source "drivers/net/wireless/legacy/Kconfig"
 source "drivers/net/wireless/virtual/Kconfig"
 
 endif # WLAN
+
+# Added from SoC drivers
+if SOC_S5E9955
+source "$(KCONFIG_EXT_SOC_PREFIX)drivers/net/wireless/pcie_scsc/Kconfig"
+endif
+if SOC_S5E8855
+source "$(KCONFIG_EXT_SOC_PREFIX)drivers/net/wireless/scsc/Kconfig"
+endif
+

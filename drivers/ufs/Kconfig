@@ -28,3 +28,6 @@ source "drivers/ufs/core/Kconfig"
 source "drivers/ufs/host/Kconfig"
 
 endif
+
+# Added from Device drivers
+source "$(KCONFIG_EXT_PREFIX)drivers/ufs/host/Kconfig"

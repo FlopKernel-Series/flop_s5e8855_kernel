@@ -13,6 +13,13 @@ struct zcomp_strm {
 	/* compression/decompression buffer */
 	void *buffer;
 	struct crypto_comp *tfm;
+#ifdef CONFIG_ZRAM_EXT
+	void *tmpbuf;
+#endif
+#if IS_ENABLED(CONFIG_VENDOR_ZRAM_LZO_HW_DECOMP)
+	int (*lzo_hw_decompress)(const unsigned char *src, size_t src_len,
+					unsigned char *dst, struct page *page);
+#endif
 };
 
 /* dynamic per-device compression frontend */
@@ -37,7 +44,7 @@ int zcomp_compress(struct zcomp_strm *zstrm,
 		const void *src, unsigned int *dst_len);
 
 int zcomp_decompress(struct zcomp_strm *zstrm,
-		const void *src, unsigned int src_len, void *dst);
+		const void *src, unsigned int src_len, void *dst, struct page *page);
 
 bool zcomp_set_max_streams(struct zcomp *comp, int num_strm);
 #endif /* _ZCOMP_H_ */

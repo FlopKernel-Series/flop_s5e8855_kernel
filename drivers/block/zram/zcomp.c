@@ -11,7 +11,8 @@
 #include <linux/sched.h>
 #include <linux/cpu.h>
 #include <linux/crypto.h>
-#include <linux/vmalloc.h>
+
+#include <soc/samsung/exynos_hw_decomp.h>
 
 #include "zcomp.h"
 
@@ -38,9 +39,15 @@ static void zcomp_strm_free(struct zcomp_strm *zstrm)
 {
 	if (!IS_ERR_OR_NULL(zstrm->tfm))
 		crypto_free_comp(zstrm->tfm);
-	vfree(zstrm->buffer);
+	free_pages((unsigned long)zstrm->buffer, 1);
 	zstrm->tfm = NULL;
 	zstrm->buffer = NULL;
+#ifdef CONFIG_ZRAM_EXT
+	if (zstrm->tmpbuf) {
+		free_pages((unsigned long)zstrm->tmpbuf, 1);
+		zstrm->tmpbuf = NULL;
+	}
+#endif
 }
 
 /*
@@ -54,11 +61,18 @@ static int zcomp_strm_init(struct zcomp_strm *zstrm, struct zcomp *comp)
 	 * allocate 2 pages. 1 for compressed data, plus 1 extra for the
 	 * case when compressed size is larger than the original one
 	 */
-	zstrm->buffer = vzalloc(2 * PAGE_SIZE);
+	zstrm->buffer = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO, 1);
 	if (IS_ERR_OR_NULL(zstrm->tfm) || !zstrm->buffer) {
 		zcomp_strm_free(zstrm);
 		return -ENOMEM;
 	}
+#ifdef CONFIG_ZRAM_EXT
+	zstrm->tmpbuf = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO, 1);
+	if (!zstrm->tmpbuf) {
+		zcomp_strm_free(zstrm);
+		return -ENOMEM;
+	}
+#endif
 	return 0;
 }
 
@@ -139,14 +153,33 @@ int zcomp_compress(struct zcomp_strm *zstrm,
 			zstrm->buffer, dst_len);
 }
 
-int zcomp_decompress(struct zcomp_strm *zstrm,
-		const void *src, unsigned int src_len, void *dst)
+#if IS_ENABLED(CONFIG_VENDOR_ZRAM_LZO_HW_DECOMP)
+static inline int _zcomp_decompress(struct zcomp_strm *zstrm,
+		const void *src, unsigned int src_len, void *dst, struct page *page)
+{
+
+	if (!!zstrm->lzo_hw_decompress) {
+		return zstrm->lzo_hw_decompress(src, src_len, dst, page);
+	} else {
+		unsigned int dst_len = PAGE_SIZE;
+
+		return crypto_comp_decompress(zstrm->tfm, src, src_len, dst, &dst_len);
+	}
+}
+#else
+static inline int _zcomp_decompress(struct zcomp_strm *zstrm,
+		const void *src, unsigned int src_len, void *dst, struct page *page)
 {
 	unsigned int dst_len = PAGE_SIZE;
 
-	return crypto_comp_decompress(zstrm->tfm,
-			src, src_len,
-			dst, &dst_len);
+	return crypto_comp_decompress(zstrm->tfm, src, src_len, dst, &dst_len);
+}
+#endif
+
+int zcomp_decompress(struct zcomp_strm *zstrm,
+		const void *src, unsigned int src_len, void *dst, struct page *page)
+{
+	return _zcomp_decompress(zstrm, src, src_len, dst, page);
 }
 
 int zcomp_cpu_up_prepare(unsigned int cpu, struct hlist_node *node)
@@ -174,6 +207,34 @@ int zcomp_cpu_dead(unsigned int cpu, struct hlist_node *node)
 	return 0;
 }
 
+#if IS_ENABLED(CONFIG_VENDOR_ZRAM_LZO_HW_DECOMP)
+static bool is_lzo_comp(const char *name) {
+	return !!strstr(name, "lzo");
+}
+
+static void vendor_decomp_init(struct zcomp *comp)
+{
+	int cpu;
+	vendor_hw_decomp_fn decomp_fn;
+
+	if (!is_lzo_comp(comp->name))
+		return;
+
+	decomp_fn = register_vendor_hw_decomp();
+	if (!decomp_fn)
+		return;
+
+	for_each_possible_cpu(cpu) {
+		struct zcomp_strm *stm;
+
+		stm = per_cpu_ptr(comp->stream, cpu);
+		stm->lzo_hw_decompress = decomp_fn;
+	}
+}
+#else
+#define vendor_decomp_init(a)	do { } while (0)
+#endif
+
 static int zcomp_init(struct zcomp *comp)
 {
 	int ret;
@@ -181,6 +242,8 @@ static int zcomp_init(struct zcomp *comp)
 	comp->stream = alloc_percpu(struct zcomp_strm);
 	if (!comp->stream)
 		return -ENOMEM;
+
+	vendor_decomp_init(comp);
 
 	ret = cpuhp_state_add_instance(CPUHP_ZCOMP_PREPARE, &comp->node);
 	if (ret < 0)
