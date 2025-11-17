@@ -33,3 +33,7 @@ subdir-y += tesla
 subdir-y += ti
 subdir-y += toshiba
 subdir-y += xilinx
+
+# Added from SoC arch
+ # SPDX-License-Identifier: GPL-2.0
+subdir-y += exynos

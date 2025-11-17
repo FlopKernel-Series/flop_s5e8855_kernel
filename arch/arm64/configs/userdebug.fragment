@@ -1,0 +1,12 @@
+CONFIG_PINCTRL_SEC_GPIO_DVS=m
+# SensorHub
+CONFIG_SHUB_DEBUG=y
+# Battery driver
+CONFIG_ENG_BATTERY_CONCEPT=y
+
+# Disable module signing and enable force load
+# CONFIG_MODULE_SIG is not set
+CONFIG_MODULE_FORCE_LOAD=y
+
+# CFI permissive mode
+CONFIG_CFI_PERMISSIVE=y
