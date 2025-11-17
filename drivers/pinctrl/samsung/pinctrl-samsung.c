@@ -32,7 +32,7 @@
 
 #include <soc/samsung/exynos-s2i.h>
 
-#include "core.h"
+#include "../core.h"
 #include "pinctrl-samsung.h"
 
 #if IS_ENABLED(CONFIG_PINCTRL_SEC_GPIO_DVS)
