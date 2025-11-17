@@ -7,4 +7,4 @@ config IS_VENDOR_INTERFACE
 # Added from Camera
 # SPDX-License-Identifier: GPL-2.0
 
-source "$(KCONFIG_EXT_MODULES_PREFIX)camera/camera/Kconfig"
+source "drivers/camera/camera/Kconfig"

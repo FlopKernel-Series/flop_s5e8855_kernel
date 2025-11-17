@@ -155,7 +155,8 @@ source "$(KCONFIG_EXT_SOC_PREFIX)mm/sec_mm/Kconfig"
 
 endmenu
 # Added from Device
-source "$(KCONFIG_EXT_SOC_PREFIX)Kconfig.ext"
+# Removed recursive inclusion - SoC Kconfig.ext already merged
+# source "$(KCONFIG_EXT_SOC_PREFIX)Kconfig.ext"
 
 source "$(KCONFIG_EXT_PREFIX)Kconfig.ext_modules"
 
@@ -223,3 +224,4 @@ source "$(KCONFIG_EXT_PREFIX)drivers/input/sec_input/stm32/Kconfig" # ADDED BY L
 source "$(KCONFIG_EXT_PREFIX)drivers/battery/battery_auth/sle956681/Kconfig" # ADDED BY LEGO AUTOMATICALLY: DO NOT SUBMIT
 source "$(KCONFIG_EXT_PREFIX)drivers/usb/typec/sm/sm5714/Kconfig" # ADDED BY LEGO AUTOMATICALLY: DO NOT SUBMIT
 source "$(KCONFIG_EXT_PREFIX)drivers/muic/sm/sm5714/Kconfig" # ADDED BY LEGO AUTOMATICALLY: DO NOT SUBMIT
+# External modules moved to Kconfig.ext_modules
