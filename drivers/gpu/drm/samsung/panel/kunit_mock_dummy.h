@@ -1,8 +1,12 @@
 #ifndef __KUNIT_MOCK_DUMMY_H__
 #define __KUNIT_MOCK_DUMMY_H__
+
+/* Only define dummy struct if real KUnit is not available */
+#if !IS_ENABLED(CONFIG_KUNIT)
 struct kunit {
 	int dummy;
 };
+#endif
 
 #define REAL_ID(func_name) __real__##func_name
 #define INVOKE_ID(func_name) __invoke__##func_name
