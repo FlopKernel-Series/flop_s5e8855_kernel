@@ -1,4 +1,0 @@
-ccflags-y += -I$(srctree)
-
-# MPAM
-obj-$(CONFIG_EXYNOS_MPAM_POLICY)	+= exynos_mpam_policy.o

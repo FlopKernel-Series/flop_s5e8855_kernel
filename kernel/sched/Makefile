@@ -33,3 +33,7 @@ obj-y += fair.o
 obj-y += build_policy.o
 obj-y += build_utility.o
 obj-$(CONFIG_ANDROID_VENDOR_HOOKS) += vendor_hooks.o
+
+# Added from SoC drivers
+CFLAGS_exynos_mpam_policy.o += -I$(srctree)
+obj-$(CONFIG_EXYNOS_MPAM_POLICY) += exynos_mpam_policy.o
