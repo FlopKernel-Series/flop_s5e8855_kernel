@@ -32,7 +32,7 @@ subdir-ccflags-y		+= -I$(srctree)/$(src)/mcd_cal		\
 endif
 
 ifdef CONFIG_SAMSUNG_TUI
-subdir-ccflags-y += -I$(srctree)/exynos/device/mx/mx8855/drivers/tee/tui
+subdir-ccflags-y += -I$(srctree)/drivers/tee/tui
 endif
 
 exynos-drm-y := exynos_drm_drv.o  exynos_drm_fb.o exynos_drm_format.o		\

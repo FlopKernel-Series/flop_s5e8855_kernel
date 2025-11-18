@@ -4,14 +4,14 @@
 
 $(info *********************************************)
 $(info srctree=$(srctree))
-$(info srctree=$(srctree)/../exynos/device/mx/mx8855/drivers/tee/)
+$(info srctree=$(srctree)/drivers/tee/)
 $(info *********************************************)
 
-ccflags-y += -I$(srctree)/../exynos/device/mx/mx8855/drivers/tee/
-ccflags-y += -I$(srctree)/../exynos/device/mx/mx8855/drivers/tee/tui/
-ccflags-y += -I$(srctree)/../exynos/device/mx/mx8855/drivers/tee/tzdev/
-ccflags-y += -I$(srctree)/../exynos/device/mx/mx8855/drivers/tee/tzdev/include/
-ccflags-y += -I$(srctree)/../exynos/device/mx/mx8855/drivers/tee/tzdev/include/tzdev/
+ccflags-y += -I$(srctree)/drivers/tee/
+ccflags-y += -I$(srctree)/drivers/tee/tui/
+ccflags-y += -I$(srctree)/drivers/tee/tzdev/
+ccflags-y += -I$(srctree)/drivers/tee/tzdev/include/
+ccflags-y += -I$(srctree)/drivers/tee/tzdev/include/tzdev/
 
 ccflags-y += -DUSE_TEE_CLIENT_API
 
