@@ -39,10 +39,6 @@ obj-y					+= allwinner/	\
 
 # Added from SoC drivers
 # SPDX-License-Identifier: GPL-2.0
-obj-$(CONFIG_PHY_EXYNOS_DP_VIDEO)	+= samsung/phy-exynos-dp-video.o
-obj-$(CONFIG_PHY_EXYNOS_MIPI_VIDEO)	+= samsung/phy-exynos-mipi-video.o
-obj-$(CONFIG_PHY_EXYNOS_MIPI_DSIM)      += samsung/phy-exynos-mipi-dsim.o
-obj-$(CONFIG_PHY_EXYNOS_MIPI)           += samsung/phy-exynos-mipi.o
 obj-$(CONFIG_PHY_EXYNOS_PCIE)		+= samsung/phy-exynos-pcie.o
 obj-$(CONFIG_PHY_SAMSUNG_UFS)		+= phy-exynos-ufs.o
 phy-exynos-ufs-y			+= samsung/phy-samsung-ufs.o

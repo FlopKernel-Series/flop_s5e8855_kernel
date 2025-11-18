@@ -13,6 +13,9 @@ obj-$(CONFIG_SND_AOA) += aoa/
 obj-$(CONFIG_AC97_BUS) += ac97_bus.o
 obj-$(CONFIG_AC97_BUS_NEW) += ac97/
 
+obj-y += soc/codecs/tas25xx/
+obj-y += soc/samsung/exynos/abox/
+
 ifeq ($(CONFIG_SND),y)
   obj-y += last.o
 endif
