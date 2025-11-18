@@ -156,3 +156,6 @@ obj-$(CONFIG_SPI_AMD)			+= spi-amd.o
 # SPI slave protocol handlers
 obj-$(CONFIG_SPI_SLAVE_TIME)		+= spi-slave-time.o
 obj-$(CONFIG_SPI_SLAVE_SYSTEM_CONTROL)	+= spi-slave-system-control.o
+# Samsung additions from Kbuild
+obj-$(CONFIG_SPI_S3C64XX_EXT)		+= spi-s3c64xx-ext.o
+obj-$(CONFIG_SPI_S3C64XX_EXT_KUNIT_TEST) += test/

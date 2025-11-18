@@ -64,3 +64,12 @@ obj-$(CONFIG_AMLOGIC_THERMAL)     += amlogic_thermal.o
 obj-$(CONFIG_SPRD_THERMAL)	+= sprd_thermal.o
 obj-$(CONFIG_KHADAS_MCU_FAN_THERMAL)	+= khadas_mcu_fan.o
 obj-$(CONFIG_LOONGSON2_THERMAL)	+= loongson2_thermal.o
+# Samsung additions from Kbuild
+obj-$(CONFIG_EXYNOS_THERMAL)			+= exynos_thermal.o
+exynos_thermal-y				:= exynos_tmu.o
+obj-$(CONFIG_EXYNOS_THERMAL_V2)			+= exynos_thermal_v2.o
+exynos_thermal_v2-y				+= exynos_tmu_v2.o
+exynos_thermal_v2-y				+= exynos_acpm_tmu.o
+obj-$(CONFIG_GPU_THERMAL)		+= gpu_cooling.o
+obj-$(CONFIG_EXYNOS_AMB_CONTROL)	+= exynos_amb_control.o
+obj-$(CONFIG_DTM_EXYNOS_KUNIT_TEST) += test/

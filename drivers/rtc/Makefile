@@ -184,3 +184,10 @@ obj-$(CONFIG_RTC_DRV_WM8350)	+= rtc-wm8350.o
 obj-$(CONFIG_RTC_DRV_X1205)	+= rtc-x1205.o
 obj-$(CONFIG_RTC_DRV_XGENE)	+= rtc-xgene.o
 obj-$(CONFIG_RTC_DRV_ZYNQMP)	+= rtc-zynqmp.o
+
+# Samsung additions from Kbuild
+obj-$(CONFIG_RTC_S2P)   += s2p_rtc.o
+obj-$(CONFIG_RTC_S2MPS27)   += s2mps27_rtc.o
+obj-$(CONFIG_RTC_S2SE910)   += s2se910_rtc.o
+obj-$(CONFIG_RTC_S2MPU15)   += s2mpu15_rtc.o
+obj-$(CONFIG_RTC_AUTO_PWRON)	        += sec_pon_alarm.o

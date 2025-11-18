@@ -1,4 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
+
+ccflags-y += -I$(srctree)
+
 obj-$(CONFIG_PM_DEVFREQ)	+= devfreq.o
 obj-$(CONFIG_PM_DEVFREQ_EVENT)	+= devfreq-event.o
 obj-$(CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND)	+= governor_simpleondemand.o
@@ -18,3 +21,11 @@ obj-$(CONFIG_ARM_TEGRA_DEVFREQ)		+= tegra30-devfreq.o
 
 # DEVFREQ Event Drivers
 obj-$(CONFIG_PM_DEVFREQ_EVENT)		+= event/
+
+# Samsung Exynos
+obj-$(CONFIG_ARM_EXYNOS_DEVFREQ) += exynos_devfreq.o
+exynos_devfreq-y += exynos-devfreq.o
+exynos_devfreq-y += governor_nop.o
+obj-$(CONFIG_EXYNOS_LEALT_DVFS) += lealt-gov.o
+obj-$(CONFIG_EXYNOS_LEALT_DVFS) += lealt-mon.o
+obj-$(CONFIG_DVFS_EXYNOS_KUNIT_TEST) += test/

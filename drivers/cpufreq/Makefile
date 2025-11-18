@@ -1,4 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
+
+subdir-ccflags-y += -I$(srctree)
+
 # CPUfreq core
 obj-$(CONFIG_CPU_FREQ)			+= cpufreq.o freq_table.o
 
@@ -113,3 +116,9 @@ obj-$(CONFIG_LOONGSON2_CPUFREQ)		+= loongson2_cpufreq.o
 obj-$(CONFIG_SH_CPU_FREQ)		+= sh-cpufreq.o
 obj-$(CONFIG_SPARC_US2E_CPUFREQ)	+= sparc-us2e-cpufreq.o
 obj-$(CONFIG_SPARC_US3_CPUFREQ)		+= sparc-us3-cpufreq.o
+
+# Samsung Exynos
+obj-$(CONFIG_EXYNOS_CPUFREQ)	+= exynos-cpufreq.o
+obj-$(CONFIG_FREQ_QOS_TRACER)	+= freq-qos-tracer.o
+obj-$(CONFIG_EXYNOS_DSUFREQ)	+= exynos-dsufreq.o
+obj-$(CONFIG_CPU_EXYNOS_KUNIT_TEST) += test/

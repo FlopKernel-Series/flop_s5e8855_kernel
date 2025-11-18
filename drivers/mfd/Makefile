@@ -282,3 +282,15 @@ obj-$(CONFIG_MFD_ATC260X_I2C)	+= atc260x-i2c.o
 
 obj-$(CONFIG_MFD_RSMU_I2C)	+= rsmu_i2c.o rsmu_core.o
 obj-$(CONFIG_MFD_RSMU_SPI)	+= rsmu_spi.o rsmu_core.o
+# Samsung additions from Kbuild
+obj-$(CONFIG_MFD_S2P)			+= s2p_mfd.o
+obj-$(CONFIG_MFD_S2MPS27)		+= s2mps27_mfd.o
+obj-$(CONFIG_MFD_S2MPS28)		+= s2mps28_mfd.o
+obj-$(CONFIG_MFD_S2MPM07)		+= s2mpm07_mfd.o
+obj-$(CONFIG_MFD_S2SE910)		+= s2se910_mfd.o
+obj-$(CONFIG_MFD_S2SE911)		+= s2se911_mfd.o
+obj-$(CONFIG_MFD_S2MPA05)		+= s2mpa05_mfd.o
+obj-$(CONFIG_MFD_S2RP910)		+= s2rp910_mfd.o
+obj-$(CONFIG_MFD_S2MPU15)		+= s2mpu15_mfd.o
+obj-$(CONFIG_MFD_S2MPU16)		+= s2mpu16_mfd.o
+obj-$(CONFIG_MFD_S2MPB02)		+= s2mpb02_mfd.o

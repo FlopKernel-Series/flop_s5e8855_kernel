@@ -235,3 +235,7 @@ obj-$(CONFIG_MENZ069_WATCHDOG) += menz69_wdt.o
 obj-$(CONFIG_RAVE_SP_WATCHDOG) += rave-sp-wdt.o
 obj-$(CONFIG_STPMIC1_WATCHDOG) += stpmic1_wdt.o
 obj-$(CONFIG_SL28CPLD_WATCHDOG) += sl28cpld_wdt.o
+
+# Samsung additions from Kbuild
+obj-$(CONFIG_S3C2410_WATCHDOG_EXT) += s3c2410_wdt_ext.o
+obj-$(CONFIG_WATCHDOG_EXYNOS_KUNIT_TEST)		+= test/
