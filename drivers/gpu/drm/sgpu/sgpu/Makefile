@@ -29,7 +29,7 @@ ccflags-y := -I$(FULL_SGPU_PATH)/include/asic_reg \
 	-I$(FULL_SGPU_PATH)/include \
 	-I$(FULL_SGPU_PATH)/sgpu \
 	-I$(FULL_SGPU_PATH)/pm/inc \
-	-I$(KERNEL_SRC)/drivers/devfreq
+	-I$(srctree)/drivers/devfreq
 
 sgpu-y := amdgpu_drv.o
 
