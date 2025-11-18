@@ -1736,7 +1736,7 @@
 /* #include "../ap_slsi_s5e8855.dtsi" */             /* From ap_slsi_s5e8855.py */
 #include <dt-bindings/clock/s5e8855.h>
 #include <dt-bindings/interrupt-controller/s5e8855.h>
-#include "../../../../../../../../erd/erd8855/arch/arm64/boot/dts/erd/erd8855-pmic.dtsi"
+#include "../erd/erd8855/erd8855-pmic.dtsi"
 
 /* #include "../usb_notifier.dtsi" */                /* From usb_notifier.py */
 
