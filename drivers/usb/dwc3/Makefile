@@ -44,7 +44,10 @@ endif
 
 obj-$(CONFIG_USB_DWC3_AM62)		+= dwc3-am62.o
 obj-$(CONFIG_USB_DWC3_OMAP)		+= dwc3-omap.o
+# Use Samsung's module version
+ifndef CONFIG_USB_DWC3_EXYNOS_MODULE
 obj-$(CONFIG_USB_DWC3_EXYNOS)		+= dwc3-exynos.o
+endif
 obj-$(CONFIG_USB_DWC3_PCI)		+= dwc3-pci.o
 obj-$(CONFIG_USB_DWC3_HAPS)		+= dwc3-haps.o
 obj-$(CONFIG_USB_DWC3_KEYSTONE)		+= dwc3-keystone.o
