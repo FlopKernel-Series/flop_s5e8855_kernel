@@ -33,3 +33,11 @@ ufs-exynos-core-$(CONFIG_SCSI_UFS_EXYNOS_FMP) += ufs-exynos-fmp.o
 ufs-exynos-core-$(CONFIG_SEC_UFS_FEATURE) += ufs-sec-feature.o ufs-sec-sysfs.o
 
 obj-$(CONFIG_EXYNOS_UFS_KUNIT_TEST) += test/
+
+obj-$(CONFIG_SEC_UFS_FEATURE) += ufs-sec-driver.o
+ufs-sec-driver-$(CONFIG_SEC_UFS_FEATURE) += ufs-sec-misc.o
+
+subdir-ccflags-y += $(UFS_DEFS) \
+                    -I${ROOT_DIR}/${KERNEL_DIR}/drivers/ufs/core \
+                    -I${ROOT_DIR}/${EXYNOS_SOC_DIR}/drivers/ufs/host \
+                    -I${ROOT_DIR}/${EXYNOS_SOC_DIR}/drivers/ufs/host/${EXYNOS_SOC}

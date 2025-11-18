@@ -92,3 +92,5 @@ endif
 obj-$(CONFIG_SEC_USB_CB)		+= sec_usb_cb.o
 obj-$(CONFIG_USB_DEBUG_MODULE)		+= exynos_usb_debug.o
 obj-$(CONFIG_EXYNOS_USB_KUNIT_TEST) += test/
+
+obj-$(CONFIG_SEC_USB_HOOK)		+= sec_usb_hook.o
