@@ -18,17 +18,6 @@
 #include <crypto/hash.h>
 #include <linux/key.h>
 #include <linux/audit.h>
-#include <crypto/hash_info.h>
-
-struct integrity_label;
-enum five_file_integrity {
-	FIVE_FILE_UNKNOWN,
-	FIVE_FILE_FAIL,
-	FIVE_FILE_RSA,
-	FIVE_FILE_DMVERITY,
-	FIVE_FILE_FSVERITY,
-	FIVE_FILE_HMAC
-};
 
 /* iint action cache flags */
 #define IMA_MEASURE		0x00000001
@@ -70,10 +59,6 @@ enum five_file_integrity {
 #define IMA_READ_APPRAISED	0x00080000
 #define IMA_CREDS_APPRAISE	0x00100000
 #define IMA_CREDS_APPRAISED	0x00200000
-
-#define FIVE_DMVERITY_PROTECTED	0x00040000
-#define FIVE_TRUSTED_FILE	0x00080000
-
 #define IMA_APPRAISE_SUBMASK	(IMA_FILE_APPRAISE | IMA_MMAP_APPRAISE | \
 				 IMA_BPRM_APPRAISE | IMA_READ_APPRAISE | \
 				 IMA_CREDS_APPRAISE)
@@ -202,8 +187,7 @@ int integrity_kernel_read(struct file *file, loff_t offset,
 #define INTEGRITY_KEYRING_IMA		1
 #define INTEGRITY_KEYRING_PLATFORM	2
 #define INTEGRITY_KEYRING_MACHINE	3
-#define INTEGRITY_KEYRING_FIVE		4
-#define INTEGRITY_KEYRING_MAX		5
+#define INTEGRITY_KEYRING_MAX		4
 
 extern struct dentry *integrity_dir;
 
@@ -219,8 +203,6 @@ int __init integrity_init_keyring(const unsigned int id);
 int __init integrity_load_x509(const unsigned int id, const char *path);
 int __init integrity_load_cert(const unsigned int id, const char *source,
 			       const void *data, size_t len, key_perm_t perm);
-int __init integrity_load_x509_from_mem(const unsigned int id,
-					const char *data, size_t size);
 #else
 
 static inline int integrity_digsig_verify(const unsigned int id,
