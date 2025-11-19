@@ -227,7 +227,7 @@ static inline u32 __calc_imb_instance_1(struct npu_session *session, bool free)
 	return largest;
 }
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+// #define MAX(a, b) ((a) > (b) ? (a) : (b))
 static inline u32 __calc_imb_req_chunk_v2(struct npu_session *session, bool free)
 {
 	u32 req_chunk_cnt, req_size;

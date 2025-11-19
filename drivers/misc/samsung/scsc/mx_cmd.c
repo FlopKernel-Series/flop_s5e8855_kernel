@@ -28,7 +28,7 @@
 
 #define PACKET_SIZE MXMGR_MESSAGE_PAYLOAD_SIZE
 #define NUM_PACKET 10
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+// #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 struct cmd_msg_packet {
 	char msg[PACKET_SIZE];
