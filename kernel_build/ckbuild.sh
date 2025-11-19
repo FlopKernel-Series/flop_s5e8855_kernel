@@ -14,6 +14,8 @@ trap 'echo -e "\n\nERROR: Build interrupted by user (Ctrl+C)\n"; exit 130' INT T
 
 ## Variables
 DEFAULT_DEFCONFIG="gts10fewifi_defconfig"
+AK3_URL="https://github.com/FlopKernel-Series/AnyKernel3-s5e8855"
+AK3_BRANCH="bk-s5e8855"
 SECONDS=0
 DATE="$(date '+%Y%m%d-%H%M')"
 
@@ -42,6 +44,7 @@ export KBUILD_BUILD_HOST="${KBUILD_BUILD_HOST:-buildhost}"
 ## Directories
 OUTDIR="$KDIR/out"
 IMAGES_DIR="$KDIR/out_images"
+AK3_DIR="$WP/AK3-s5e8855"
 
 ## Customizable vars
 KERNEL_VER="v1.0a" # placeholder
@@ -62,6 +65,8 @@ DO_QUIET=0
 DO_VENDOR_BOOT=1  # Default: build vendor_boot
 DO_GKI_ONLY=0
 DO_LTO_FULL=0
+DO_ZIP=1
+DO_TAR=1
 DEFCONFIG=$DEFAULT_DEFCONFIG
 
 ## Parse arguments
@@ -124,10 +129,8 @@ build
 package_images
 build_boot_image
 build_vendor_boot
+create_anykernel_zip
 create_odin_tar
 
 echo -e "\nINFO: Build completed in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s)!"
 echo "INFO: Output directory: $IMAGES_DIR"
-if [ -n "$TAR_NAME" ] && [ -f "$TAR_NAME" ]; then
-    echo "INFO: Odin package: $TAR_NAME"
-fi
