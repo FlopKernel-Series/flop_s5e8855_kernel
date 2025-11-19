@@ -27,7 +27,8 @@ subdir-ccflags-y			:= -I$(srctree)/$(src)			\
 					   -I$(srctree)/$(src)/$(cal-dir)
 
 ifneq ($(filter y m,$(CONFIG_DRM_PANEL_MCD_COMMON)),)
-subdir-ccflags-y		+= -I$(srctree)/$(src)/mcd_cal
+subdir-ccflags-y		+= -I$(srctree)/$(src)/mcd_cal		\
+				   -I$(srctree)/drivers/gpu/drm/samsung/panel
 endif
 
 ifdef CONFIG_SAMSUNG_TUI
