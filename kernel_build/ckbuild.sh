@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Build script for gts10fewifi kernel (Exynos s5e8855)
+# Build script for FloppyKernel (Exynos 1580 / s5e8855).
 # Based on FloppyKernel s5e8825 (Floppy1280) script.
 # Copyright (C) 2025 Flopster101
 #
@@ -14,8 +14,9 @@ trap 'echo -e "\n\nERROR: Build interrupted by user (Ctrl+C)\n"; exit 130' INT T
 
 ## Variables
 DEFAULT_DEFCONFIG="gts10fewifi_defconfig"
+KERNEL_URL="https://github.com/FlopKernel-Series/flop_s5e8855_kernel"
 AK3_URL="https://github.com/FlopKernel-Series/AnyKernel3-s5e8855"
-AK3_BRANCH="bk-s5e8855"
+AK3_BRANCH="floppy-gts10fe"
 SECONDS=0
 DATE="$(date '+%Y%m%d-%H%M')"
 
@@ -47,7 +48,7 @@ IMAGES_DIR="$KDIR/out_images"
 AK3_DIR="$WP/AK3-s5e8855"
 
 ## Customizable vars
-KERNEL_VER="v1.0a" # placeholder
+FK_VER="v1.0a" # FloppyKernel version
 DEVICE="Galaxy Tab S10 FE WiFi"
 CODENAME="gts10fewifi"
 SOC="s5e8855"
@@ -114,7 +115,7 @@ echo -e "\nINFO: Build info:
 - Device: $DEVICE ($CODENAME)
 - SoC: $SOC
 - Variant: $KERNEL_VARIANT
-- Kernel version: $KERNEL_VER
+- FloppyKernel version: $FK_VER
 - Linux version: $(make kernelversion 2>/dev/null)
 - Defconfig: $DEFCONFIG
 - LTO: $([ "$DO_LTO_FULL" -eq 1 ] && echo "Full" || echo "Thin")

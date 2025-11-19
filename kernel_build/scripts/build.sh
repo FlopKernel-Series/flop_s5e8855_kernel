@@ -55,7 +55,7 @@ build() {
     fi
 
     # Set LOCALVERSION
-    VERSION_STR="\"-gts10fewifi-$KERNEL_VARIANT_SHORT\""
+    VERSION_STR="\"-Floppy-$FK_VER-$KERNEL_VARIANT_SHORT\""
     scripts/config --file "$OUTDIR/.config" --set-val LOCALVERSION "$VERSION_STR"
 
     # Menuconfig if requested
