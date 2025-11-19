@@ -97,6 +97,7 @@ void free_block_bdev(struct zram *zram, unsigned long handle)
 	}
 	free_chunk_bdev(zram, blk_to_chunk_idx(handle >> IDX_SHIFT));
 }
+EXPORT_SYMBOL(free_block_bdev);
 
 static void pin_chunk_bdev(struct zram *zram, unsigned long chunk_idx)
 {
@@ -487,6 +488,7 @@ int try_read_from_bdev(struct zram *zram, struct page *page,
 		atomic64_inc(&zram->stats.bd_objreads);
 	return 0;
 }
+EXPORT_SYMBOL(try_read_from_bdev);
 
 static int zram_prefetchd(void *data)
 {
@@ -1112,6 +1114,7 @@ ssize_t bd_stat_show(struct device *dev,
 
 	return ret;
 }
+EXPORT_SYMBOL(bd_stat_show);
 
 ssize_t bd_stat_store(struct device *dev,
 		struct device_attribute *attr,
@@ -1124,6 +1127,7 @@ ssize_t bd_stat_store(struct device *dev,
 
 	return len;
 }
+EXPORT_SYMBOL(bd_stat_store);
 
 static long get_zram_total_kbytes(struct zram *zram)
 {
@@ -1171,6 +1175,7 @@ void zram_error_count_store(struct zram *zram, int type)
 			(u64)atomic64_read(&zram->stats.error_count[1]));
 	BUG_ON(force_upload_mode());
 }
+EXPORT_SYMBOL(zram_error_count_store);
 
 ssize_t zram_error_count_show(struct zram *zram, char *buf, ssize_t size)
 {
@@ -1178,6 +1183,7 @@ ssize_t zram_error_count_show(struct zram *zram, char *buf, ssize_t size)
 			(u64)atomic64_read(&zram->stats.error_count[0]),
 			(u64)atomic64_read(&zram->stats.error_count[1]));
 }
+EXPORT_SYMBOL(zram_error_count_show);
 
 void deinit_zram_ext(struct zram *zram)
 {
@@ -1213,6 +1219,7 @@ void deinit_zram_ext(struct zram *zram)
 	unregister_trace_android_vh_show_mem(zram_show_mem, zram);
 	unregister_trace_android_vh_meminfo_proc_show(zram_meminfo, zram);
 }
+EXPORT_SYMBOL(deinit_zram_ext);
 
 int init_zram_ext(struct zram *zram, unsigned long nr_pages, unsigned int size)
 {
@@ -1261,4 +1268,5 @@ out:
 	deinit_zram_ext(zram);
 	return -ENOMEM;
 }
+EXPORT_SYMBOL(init_zram_ext);
 #endif
