@@ -247,6 +247,7 @@ int __ptep_set_access_flags(struct vm_area_struct *vma,
 		flush_tlb_page(vma, address);
 	return 1;
 }
+EXPORT_SYMBOL(__ptep_set_access_flags);
 
 static bool is_el1_instruction_abort(unsigned long esr)
 {
@@ -809,6 +810,7 @@ static int do_sea(unsigned long far, unsigned long esr, struct pt_regs *regs)
 				      inf->name, esr, siaddr,
 				      show_virt_to_phys(siaddr));
 	}
+	add_taint(TAINT_MACHINE_CHECK, LOCKDEP_STILL_OK);
 	trace_android_rvh_do_sea(siaddr, esr, regs);
 	arm64_notify_die(inf->name, regs, inf->sig, inf->code, siaddr, esr);
 

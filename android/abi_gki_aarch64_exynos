@@ -160,6 +160,7 @@
   __devm_add_action
   devm_clk_get
   devm_clk_put
+  devm_devfreq_register_notifier
   __devm_drm_dev_alloc
   devm_free_irq
   devm_gen_pool_create
@@ -209,8 +210,6 @@
   dma_buf_begin_cpu_access
   dma_buf_detach
   dma_buf_end_cpu_access
-  dma_buf_export
-  dma_buf_fd
   dma_buf_get
   dma_buf_get_flags
   dma_buf_map_attachment
@@ -505,6 +504,7 @@
   kthread_cancel_work_sync
   kthread_create_on_node
   kthread_create_worker
+  kthread_delayed_work_timer_fn
   kthread_destroy_worker
   __kthread_init_worker
   kthread_park
@@ -657,6 +657,7 @@
   pfn_is_map_memory
   phy_power_off
   phy_power_on
+  phy_set_mode_ext
   pinconf_generic_dt_node_to_map
   pinctrl_dev_get_drvdata
   pinctrl_get
@@ -889,7 +890,6 @@
   stack_trace_save_tsk
   static_key_slow_dec
   static_key_slow_inc
-  stpcpy
   strcasecmp
   strchr
   strcmp
@@ -904,11 +904,11 @@
   strnstr
   strpbrk
   strrchr
-  strreplace
   strscpy
   strsep
   strstr
   subsys_system_register
+  __sw_hweight16
   __sw_hweight32
   __sw_hweight64
   __sw_hweight8
@@ -1154,7 +1154,6 @@
   skb_add_rx_frag
   __sock_create
   sock_release
-  __sw_hweight16
   unregister_netdevice_notifier
   unregister_pernet_device
   verify_pkcs7_signature
@@ -1620,6 +1619,7 @@
   of_add_property
   of_drm_find_bridge
   of_drm_find_panel
+  param_get_uint
   phy_init
   platform_find_device_by_driver
 
@@ -1658,7 +1658,6 @@
   driver_register
 
 # required by exynos-usb-audio-offloading.ko
-  phy_set_mode_ext
   snd_ctl_add
   snd_ctl_new1
   snd_usb_autoresume
@@ -1699,6 +1698,10 @@
   snd_soc_of_put_dai_link_codecs
   snd_soc_params_to_bclk
   snd_soc_pm_ops
+
+# required by exynos_amb_control.ko
+  kthread_cancel_delayed_work_sync
+  kthread_mod_delayed_work
 
 # required by exynos_devfreq.ko
   devfreq_register_opp_notifier
@@ -1772,6 +1775,10 @@
   uart_try_toggle_sysrq
   uart_update_timeout
 
+# required by exynos_usb_debug.ko
+  __traceiter_android_vh_configfs_uevent_work
+  __tracepoint_android_vh_configfs_uevent_work
+
 # required by exyswd-rng.ko
   devm_hwrng_register
   platform_device_register
@@ -1809,6 +1816,18 @@
   param_set_ulong
   v4l2_m2m_querybuf
 
+# required by gcma.ko
+  cleancache_register_ops
+  debugfs_attr_read
+  debugfs_attr_write
+  idr_preload
+  __traceiter_android_vh_si_meminfo_adjust
+  __tracepoint_android_vh_si_meminfo_adjust
+  __xa_erase
+  xas_find
+  xas_pause
+  __xa_store
+
 # required by gpu-sched.ko
   dma_fence_set_deadline
   sched_set_fifo_low
@@ -1842,6 +1861,9 @@
 
 # required by is-actuator-dw9808.ko
   v4l2_i2c_subdev_init
+
+# required by lealt-gov.ko
+  bpf_trace_run10
 
 # required by lealt-gov.ko
   bpf_trace_run10
@@ -2005,6 +2027,7 @@
   contig_page_data
   copy_page
   deferred_free
+  dma_buf_export
   dmabuf_page_pool_alloc
   dmabuf_page_pool_create
   dmabuf_page_pool_destroy
@@ -2065,6 +2088,7 @@
   hci_uart_register_device_priv
   hci_uart_unregister_device
   param_ops_ullong
+  serdev_device_close
   __serdev_device_driver_register
 
 # required by scsc_logring.ko
@@ -2503,6 +2527,7 @@
   device_store_bool
   device_store_int
   devm_krealloc
+  dma_buf_fd
   kstrtobool_from_user
   kstrtouint_from_user
   kstrtoull_from_user

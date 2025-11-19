@@ -25,6 +25,8 @@
 
 #include <trace/hooks/dtask.h>
 
+#include <trace/hooks/dtask.h>
+
 #include "internals.h"
 
 #if defined(CONFIG_IRQ_FORCED_THREADING) && !defined(CONFIG_PREEMPT_RT)

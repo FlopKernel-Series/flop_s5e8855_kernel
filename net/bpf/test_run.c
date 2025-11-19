@@ -244,6 +244,7 @@ static void reset_ctx(struct xdp_page_head *head)
 	head->ctx.data_meta = head->orig_ctx.data_meta;
 	head->ctx.data_end = head->orig_ctx.data_end;
 	xdp_update_frame_from_buff(&head->ctx, head->frame);
+	head->frame->mem = head->orig_ctx.rxq->mem;
 }
 
 static int xdp_recv_frames(struct xdp_frame **frames, int nframes,
@@ -601,9 +602,20 @@ __bpf_kfunc void bpf_kfunc_call_test_release(struct prog_test_ref_kfunc *p)
 	refcount_dec(&p->cnt);
 }
 
+__bpf_kfunc void bpf_kfunc_call_test_release_dtor(void *p)
+{
+	bpf_kfunc_call_test_release(p);
+}
+CFI_NOSEAL(bpf_kfunc_call_test_release_dtor);
+
 __bpf_kfunc void bpf_kfunc_call_memb_release(struct prog_test_member *p)
 {
 }
+
+__bpf_kfunc void bpf_kfunc_call_memb_release_dtor(void *p)
+{
+}
+CFI_NOSEAL(bpf_kfunc_call_memb_release_dtor);
 
 __diag_pop();
 
@@ -629,11 +641,8 @@ static void *bpf_test_init(const union bpf_attr *kattr, u32 user_size,
 	void __user *data_in = u64_to_user_ptr(kattr->test.data_in);
 	void *data;
 
-	if (size < ETH_HLEN || size > PAGE_SIZE - headroom - tailroom)
+	if (user_size < ETH_HLEN || user_size > PAGE_SIZE - headroom - tailroom)
 		return ERR_PTR(-EINVAL);
-
-	if (user_size > size)
-		return ERR_PTR(-EMSGSIZE);
 
 	size = SKB_DATA_ALIGN(size);
 	data = kzalloc(size + headroom + tailroom, GFP_USER);
@@ -1678,9 +1687,9 @@ static const struct btf_kfunc_id_set bpf_prog_test_kfunc_set = {
 
 BTF_ID_LIST(bpf_prog_test_dtor_kfunc_ids)
 BTF_ID(struct, prog_test_ref_kfunc)
-BTF_ID(func, bpf_kfunc_call_test_release)
+BTF_ID(func, bpf_kfunc_call_test_release_dtor)
 BTF_ID(struct, prog_test_member)
-BTF_ID(func, bpf_kfunc_call_memb_release)
+BTF_ID(func, bpf_kfunc_call_memb_release_dtor)
 
 static int __init bpf_prog_test_run_init(void)
 {
