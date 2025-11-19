@@ -37,7 +37,7 @@ create_anykernel_zip() {
     fi
 
     # Create zip
-    ZIP_NAME="$KDIR/gts10fewifi-${KERNEL_VARIANT}-${DATE}.zip"
+    ZIP_NAME="$KDIR/kernel_build/gts10fewifi-${KERNEL_VARIANT}-${DATE}.zip"
     zip -r9 -q "$ZIP_NAME" * -x .git .github README.md
 
     cd "$KDIR"
@@ -85,7 +85,7 @@ create_odin_tar() {
         variant_suffix="-gki"
     fi
 
-    TAR_NAME="$KDIR/gts10fewifi-${KERNEL_VARIANT}${variant_suffix}-${DATE}.tar"
+    TAR_NAME="$KDIR/kernel_build/gts10fewifi-${KERNEL_VARIANT}${variant_suffix}-${DATE}.tar"
 
     echo "INFO: Packaging $tar_desc..."
     tar -C "$IMAGES_DIR" -cf "$TAR_NAME" $tar_files
