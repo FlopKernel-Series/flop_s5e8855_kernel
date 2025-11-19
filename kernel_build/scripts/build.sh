@@ -42,9 +42,11 @@ build() {
         MAKE_ARGS+=(KBUILD_VERBOSE=0)
     fi
 
+    FRAGMENTS="$([ "$DO_LTO_FULL" == "1" ] && echo "lto-full.config" || echo "lto-thin.config")"
+
     # Generate defconfig
     echo "INFO: Generating defconfig..."
-    make "${MAKE_ARGS[@]}" CC="$CC" "$DEFCONFIG" 2>&1 | tee -a log.txt
+    make "${MAKE_ARGS[@]}" CC="$CC" "$DEFCONFIG" $FRAGMENTS 2>&1 | tee -a log.txt
     if [ "${PIPESTATUS[0]}" -ne 0 ]; then
         echo -e "\nERROR: Defconfig generation failed!"
         echo "ERROR: Check log.txt for details"

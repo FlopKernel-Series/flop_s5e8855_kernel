@@ -61,6 +61,7 @@ DO_MENUCONFIG=0
 DO_QUIET=0
 DO_VENDOR_BOOT=1  # Default: build vendor_boot
 DO_GKI_ONLY=0
+DO_LTO_FULL=0
 DEFCONFIG=$DEFAULT_DEFCONFIG
 
 ## Parse arguments
@@ -86,6 +87,11 @@ for arg in "$@"; do
         echo "INFO: Quiet mode"
         DO_QUIET=1
     fi
+    if [[ "$arg" == *f* ]]; then
+        echo "INFO: Full LTO argument passed"
+        echo "WARNING: Full LTO is VERY resource heavy and may take a long time to compile"
+        DO_LTO_FULL=1
+    fi
 done
 
 echo -e "\nINFO: Build info:
@@ -95,6 +101,7 @@ echo -e "\nINFO: Build info:
 - Kernel version: $KERNEL_VER
 - Linux version: $(make kernelversion 2>/dev/null)
 - Defconfig: $DEFCONFIG
+- LTO: $([ "$DO_LTO_FULL" -eq 1 ] && echo "Full" || echo "Thin")
 - Toolchain: ${CLANG_TYPE:-aosp-r510928}
 - Build type: $([ "$DO_GKI_ONLY" -eq 1 ] && echo "GKI-only" || echo "Full (boot + vendor_boot)")
 - Build date: $DATE
