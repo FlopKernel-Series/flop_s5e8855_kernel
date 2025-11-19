@@ -29,7 +29,6 @@
 #include <linux/backing-dev.h>
 #include <linux/string.h>
 #include <linux/msg.h>
-#include <linux/task_integrity.h>
 #include <net/flow.h>
 
 /* How many LSMs were built into the kernel? */
@@ -2190,9 +2189,6 @@ int security_inode_setxattr(struct mnt_idmap *idmap,
 		ret = cap_inode_setxattr(dentry, name, value, size, flags);
 	if (ret)
 		return ret;
-	ret = five_inode_setxattr(dentry, name, value, size);
-	if (ret)
-		return ret;
 	ret = ima_inode_setxattr(dentry, name, value, size);
 	if (ret)
 		return ret;
@@ -2352,9 +2348,6 @@ int security_inode_removexattr(struct mnt_idmap *idmap,
 	ret = call_int_hook(inode_removexattr, 1, idmap, dentry, name);
 	if (ret == 1)
 		ret = cap_inode_removexattr(idmap, dentry, name);
-	if (ret)
-		return ret;
-	ret = five_inode_removexattr(dentry, name);
 	if (ret)
 		return ret;
 	ret = ima_inode_removexattr(dentry, name);
@@ -2728,9 +2721,6 @@ int security_mmap_file(struct file *file, unsigned long prot,
 	int ret;
 
 	ret = call_int_hook(mmap_file, 0, file, prot, prot_adj, flags);
-	if (ret)
-		return ret;
-	ret = five_file_mmap(file, prot);
 	if (ret)
 		return ret;
 	return ima_file_mmap(file, prot, prot_adj, flags);

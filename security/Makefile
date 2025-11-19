@@ -29,8 +29,3 @@ obj-$(CONFIG_SECURITY_LANDLOCK)		+= landlock/
 obj-$(CONFIG_INTEGRITY)			+= integrity/
 # DSMS
 obj-$(CONFIG_SECURITY_DSMS)		+= samsung/dsms/
-# FIVE
-obj-$(CONFIG_FIVE)			+= samsung/five/
-# PROCA
-obj-$(CONFIG_PROCA)			+= samsung/proca/
-obj-$(CONFIG_GAF)			+= samsung/proca/gaf/

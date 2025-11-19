@@ -18,7 +18,6 @@
 #include <linux/security.h>
 #include <linux/evm.h>
 #include <linux/ima.h>
-#include <linux/task_integrity.h>
 
 #include "internal.h"
 

@@ -63,7 +63,6 @@
 #include <linux/vmalloc.h>
 #include <linux/io_uring.h>
 #include <linux/syscall_user_dispatch.h>
-#include <linux/task_integrity.h>
 #include <linux/coredump.h>
 #include <linux/time_namespace.h>
 #include <linux/user_events.h>
@@ -1873,7 +1872,6 @@ static int bprm_execve(struct linux_binprm *bprm,
 
 	retval = exec_binprm(bprm);
 	if (retval < 0) {
-		task_integrity_delayed_reset(current, CAUSE_EXEC, bprm->file);
 		goto out;
 	}
 
