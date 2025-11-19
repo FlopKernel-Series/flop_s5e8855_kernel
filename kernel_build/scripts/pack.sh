@@ -15,9 +15,6 @@ create_odin_tar() {
     local tar_files="boot.img"
     local tar_desc="boot.img"
 
-    # Build variant name (lowercase)
-    local variant_name=$(echo "$KERNEL_VARIANT" | tr '[:upper:]' '[:lower:]')
-
     # Add GKI suffix if GKI-only build
     if [ "$DO_GKI_ONLY" == "1" ]; then
         variant_name="${variant_name}-gki"
@@ -34,7 +31,7 @@ create_odin_tar() {
         tar_desc="$tar_desc + dtbo.img"
     fi
 
-    TAR_NAME="$KDIR/gts10fewifi-${variant_name}-${DATE}.tar"
+    TAR_NAME="$KDIR/gts10fewifi-${KERNEL_VARIANT}-${DATE}.tar"
 
     echo "INFO: Packaging $tar_desc..."
     tar -C "$IMAGES_DIR" -cf "$TAR_NAME" $tar_files
