@@ -2,7 +2,8 @@
 snd-soc-dp_dma-objs := dp_dma.o
 
 obj-$(CONFIG_SND_SOC_SAMSUNG_DISPLAYPORT) += snd-soc-dp_dma.o
-obj-$(CONFIG_SND_SOC_SAMSUNG_ABOX) += abox/
+# abox/ is included at top-level sound/Makefile to avoid duplicate builds
+# obj-$(CONFIG_SND_SOC_SAMSUNG_ABOX) += abox/
 obj-$(CONFIG_SND_SOC_SAMSUNG_MAILBOX) += vts/
 obj-$(CONFIG_SND_SOC_SAMSUNG_SLIF) += slif/
 obj-$(CONFIG_SND_SOC_SAMSUNG_S5M3500X) += codecs/
