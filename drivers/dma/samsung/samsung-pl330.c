@@ -28,7 +28,7 @@
 #include <linux/bug.h>
 #include <linux/reset.h>
 
-//#include "../../../../../../common/drivers/dma/dmaengine.h"
+//#include "../dmaengine.h"
 #include "dmaengine.h"
 
 #define PL330_MAX_CHAN		8

@@ -41,7 +41,7 @@
 #include <soc/samsung/ect_parser.h>
 #include <soc/samsung/freq-qos-tracer.h>
 #include "exynos_tmu.h"
-#include "../../../../../common/drivers/thermal/thermal_core.h"
+#include "thermal_core.h"
 
 #include "exynos_acpm_tmu.h"
 

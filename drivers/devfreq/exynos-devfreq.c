@@ -44,7 +44,7 @@
 #include <soc/samsung/esca.h>
 #endif
 
-#include "../../../../../common/drivers/devfreq/governor.h"
+#include "governor.h"
 
 #if IS_ENABLED (CONFIG_EXYNOS_THERMAL_V2) && IS_ENABLED(CONFIG_DEV_THERMAL)
 #include <soc/samsung/dev_cooling.h>

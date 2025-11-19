@@ -19,7 +19,7 @@
 #include <linux/timer.h>
 #include <linux/kthread.h>
 #include <linux/pm_opp.h>
-#include "../../../../../common/drivers/devfreq/governor.h"
+#include "governor.h"
 
 #include <soc/samsung/exynos-devfreq.h>
 #include <linux/devfreq.h>
