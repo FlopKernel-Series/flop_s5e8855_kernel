@@ -44,7 +44,8 @@ build() {
 
     # Generate defconfig
     echo "INFO: Generating defconfig..."
-    if ! make "${MAKE_ARGS[@]}" CC="$CC" "$DEFCONFIG" 2>&1 | tee -a log.txt; then
+    make "${MAKE_ARGS[@]}" CC="$CC" "$DEFCONFIG" 2>&1 | tee -a log.txt
+    if [ "${PIPESTATUS[0]}" -ne 0 ]; then
         echo -e "\nERROR: Defconfig generation failed!"
         echo "ERROR: Check log.txt for details"
         exit 1
@@ -56,7 +57,8 @@ build() {
 
     # Menuconfig if requested
     if [ "$DO_MENUCONFIG" == "1" ]; then
-        if ! make "${MAKE_ARGS[@]}" CC="$CC" menuconfig 2>&1 | tee -a log.txt; then
+        make "${MAKE_ARGS[@]}" CC="$CC" menuconfig 2>&1 | tee -a log.txt
+        if [ "${PIPESTATUS[0]}" -ne 0 ]; then
             echo -e "\nERROR: Menuconfig failed!"
             exit 1
         fi
@@ -64,7 +66,8 @@ build() {
 
     # Build kernel, modules, and device trees
     echo "INFO: Building kernel, modules, and device trees..."
-    if ! make "${MAKE_ARGS[@]}" CC="$CC" Image modules dtbs 2>&1 | tee -a log.txt; then
+    make "${MAKE_ARGS[@]}" CC="$CC" Image modules dtbs 2>&1 | tee -a log.txt
+    if [ "${PIPESTATUS[0]}" -ne 0 ]; then
         echo -e "\nERROR: Kernel build failed!"
         echo "ERROR: Check log.txt for details"
         exit 1
