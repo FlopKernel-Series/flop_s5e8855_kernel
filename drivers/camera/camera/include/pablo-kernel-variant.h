@@ -298,9 +298,9 @@ void pkv_emstune_remove_request(void);
 void pkv_emstune_boost(int enable);
 
 #if PKV_VER_GE(6, 6, 0)
-#define PABLO_TRACE_INCLUDE_PATH ../../../exynos/external-modules/camera/camera/lib/
+#define PABLO_TRACE_INCLUDE_PATH ../../drivers/camera/camera/lib/
 #else
-#define PABLO_TRACE_INCLUDE_PATH ../../drivers/media/platform/exynos/camera/lib/
+#define PABLO_TRACE_INCLUDE_PATH ../../drivers/camera/camera/lib/
 #define PKV_KVMEMDUP_UNSUPPORTED
 #endif
 
