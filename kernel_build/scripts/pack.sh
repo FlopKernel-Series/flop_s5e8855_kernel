@@ -43,7 +43,7 @@ create_anykernel_zip() {
     cd "$KDIR"
 
     echo "INFO: AnyKernel3 zip created!"
-    echo "INFO: Output: $(basename "$ZIP_NAME") ($(du -h "$ZIP_NAME" | cut -f1))"
+    echo "INFO: Output: $(realpath "$ZIP_NAME") ($(du -h "$ZIP_NAME" | cut -f1))"
 
     # Cleanup AK3 directory
     rm -rf "$AK3_DIR"
@@ -90,7 +90,7 @@ create_odin_tar() {
     echo "INFO: Packaging $tar_desc..."
     tar -C "$IMAGES_DIR" -cf "$TAR_NAME" $tar_files
     echo "INFO: Odin tar created!"
-    echo "INFO: Output: $(basename "$TAR_NAME") ($(du -h "$TAR_NAME" | cut -f1))"
+    echo "INFO: Output: $(realpath "$TAR_NAME") ($(du -h "$TAR_NAME" | cut -f1))"
 
     return 0
 }
