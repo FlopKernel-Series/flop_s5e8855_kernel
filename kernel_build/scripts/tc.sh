@@ -78,6 +78,7 @@ get_toolchain() {
 
                 if [ ! -f "$CLANG_TAR" ]; then
                     echo "INFO: Downloading from: $AOSP_R510928_URL"
+                    mkdir -p "$TC_DIR"
                     if command -v wget &> /dev/null; then
                         wget -nv --show-progress -O "$CLANG_TAR" "$AOSP_R510928_URL" || {
                             echo "ERROR: Failed to download clang"
