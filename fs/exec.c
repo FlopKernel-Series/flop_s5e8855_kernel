@@ -1237,6 +1237,7 @@ void __set_task_comm(struct task_struct *tsk, const char *buf, bool exec)
 	task_lock(tsk);
 	trace_task_rename(tsk, buf);
 	strscpy_pad(tsk->comm, buf, sizeof(tsk->comm));
+	trace_android_vh_set_task_comm(tsk);
 	task_unlock(tsk);
 	perf_event_comm(tsk, exec);
 	trace_android_rvh_set_task_comm(tsk, exec);
@@ -1874,8 +1875,9 @@ static int bprm_execve(struct linux_binprm *bprm,
 		goto out;
 
 	retval = exec_binprm(bprm);
-	if (retval < 0)
+	if (retval < 0) {
 		goto out;
+	}
 
 	sched_mm_cid_after_execve(current);
 	/* execve succeeded */
