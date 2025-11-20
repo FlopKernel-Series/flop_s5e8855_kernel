@@ -6,6 +6,8 @@
 package_images() {
     echo -e "\nINFO: Packaging kernel images..."
 
+    # Clean previous build artifacts
+    rm -rf "$IMAGES_DIR"
     mkdir -p "$IMAGES_DIR"
 
     # Copy kernel image
