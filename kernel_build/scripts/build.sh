@@ -55,8 +55,14 @@ build() {
     fi
 
     # Set LOCALVERSION
-    VERSION_STR="\"-Floppy-$FK_VER-$KERNEL_VARIANT_SHORT\""
-    scripts/config --file "$OUTDIR/.config" --set-val LOCALVERSION "$VERSION_STR"
+    if [ "$IS_RELEASE" == "1" ]; then
+        VERSION_STR="\"-Floppy-$FK_VER-$KERNEL_VARIANT_SHORT/release\""
+        scripts/config --file "$OUTDIR/.config" --set-val LOCALVERSION "$VERSION_STR"
+        scripts/config --file "$OUTDIR/.config" --disable LOCALVERSION_AUTO
+    else
+        VERSION_STR="\"-Floppy-$FK_VER-$KERNEL_VARIANT_SHORT/\""
+        scripts/config --file "$OUTDIR/.config" --set-val LOCALVERSION "$VERSION_STR"
+    fi
 
     # Menuconfig if requested
     if [ "$DO_MENUCONFIG" == "1" ]; then

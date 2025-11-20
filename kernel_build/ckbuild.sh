@@ -69,6 +69,7 @@ DO_LTO_FULL=0
 DO_ZIP=1
 DO_TAR=1
 DO_KSU=0
+IS_RELEASE=0
 DEFCONFIG=$DEFAULT_DEFCONFIG
 
 ## Parse arguments
@@ -103,7 +104,18 @@ for arg in "$@"; do
         echo "INFO: KernelSU argument passed, a KernelSU build will be made"
         DO_KSU=1
     fi
+    if [[ "$arg" == *R* ]]; then
+        echo "INFO: Release argument passed, build marked as release"
+        IS_RELEASE=1
+    fi
 done
+
+# Set build type
+if [ "$IS_RELEASE" == "1" ]; then
+    BUILD_TYPE="Release"
+else
+    BUILD_TYPE="Testing"
+fi
 
 # Set kernel variant based on arguments
 if [ "$DO_KSU" == "1" ]; then
@@ -120,7 +132,7 @@ echo -e "\nINFO: Build info:
 - Defconfig: $DEFCONFIG
 - LTO: $([ "$DO_LTO_FULL" -eq 1 ] && echo "Full" || echo "Thin")
 - Toolchain: ${CLANG_TYPE:-aosp-r510928}
-- Build type: $([ "$DO_GKI_ONLY" -eq 1 ] && echo "GKI-only" || echo "Full (boot + vendor_boot)")
+- Build type: $BUILD_TYPE ($([ "$DO_GKI_ONLY" -eq 1 ] && echo "GKI-only" || echo "Full"))
 - Build date: $DATE
 - Clean build: $([ "$DO_CLEAN" -eq 1 ] && echo "Yes" || echo "No")
 "
